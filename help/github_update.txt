@@ -1,0 +1,6 @@
+Actualizar repositorio
+    git add
+    git commit -m "v2"
+    git push
+
+    
