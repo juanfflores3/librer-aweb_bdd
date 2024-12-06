@@ -1,0 +1,5 @@
+Logs del contenedor
+    - docker logs mysql_container
+
+Verificar que la BDD se haya importado
+    - docker exec -it mysql_container mysql -u root -p
