@@ -2,8 +2,13 @@ const express = require('express');
 const router = express.Router();
 const pool = require('../config/db');
 
+
+///////////////
+// Consultas //
+///////////////
+
 // 1. ¿Cuál es el libro más vendido en la tienda física?
-router.get('/libro-mas-vendido-tienda-fisica', async (req, res) => {
+router.get('/1', async (req, res) => {
   try {
     const [results] = await pool.query(`
         SELECT p.titulo_libro, COUNT(*) AS total_ventas
@@ -19,7 +24,7 @@ router.get('/libro-mas-vendido-tienda-fisica', async (req, res) => {
 });
 
 // 2. ¿Cuál es la fecha donde ha habido más ventas?
-router.get('/fecha-mas-ventas', async (req, res) => {
+router.get('/2', async (req, res) => {
   try {
     const [results] = await pool.query(`
       SELECT p.fecha_compra, COUNT(*) AS total_ventas
@@ -36,7 +41,7 @@ router.get('/fecha-mas-ventas', async (req, res) => {
 });
 
 // 3. ¿Cuántos libros tenemos sobre un autor?
-router.get('/libros-sobre-un-autor', async (req, res) => {
+router.get('/3', async (req, res) => {
   try {
     const [results] = await pool.query(`
       SELECT a.nombre AS Autor, l.titulo_libro AS Libro, SUM(i.stock) AS stock
@@ -55,7 +60,7 @@ router.get('/libros-sobre-un-autor', async (req, res) => {
 });
 
 // 4. ¿Cuáles son las sucursales que poseen más libros?
-router.get('/sucursales-mas-libros', async (req, res) => {
+router.get('/4', async (req, res) => {
   try {
     const [results] = await pool.query(`
       SELECT s.nombre AS Sucursal, SUM(i.stock) AS stock
@@ -72,7 +77,7 @@ router.get('/sucursales-mas-libros', async (req, res) => {
 });
 
 // 5. ¿Cuál es el genero más comprado en la comuna de "Santiago"?
-router.get('/genero-mas-comprado-santiago', async (req, res) => {
+router.get('/5', async (req, res) => {
   try {
     const [results] = await pool.query(`
       SELECT l.genero AS Genero
@@ -92,7 +97,7 @@ router.get('/genero-mas-comprado-santiago', async (req, res) => {
 });
 
 // 6. ¿Cuáles son los géneros de libro más comprado?
-router.get('/generos-mas-comprados', async (req, res) => {
+router.get('/6', async (req, res) => {
   try {
     const [results] = await pool.query(`
       SELECT l.genero AS Genero, COUNT(*) AS total_compras
@@ -109,7 +114,7 @@ router.get('/generos-mas-comprados', async (req, res) => {
 });
 
 // 7. ¿Cuál es el libro que más se ha devuelto?
-router.get('/libro-mas-devuelto', async (req, res) => {
+router.get('/7', async (req, res) => {
   try {
     const [results] = await pool.query(`
       SELECT d.titulo_libro, COUNT(*) AS total_devolucion
@@ -126,7 +131,7 @@ router.get('/libro-mas-devuelto', async (req, res) => {
 });
 
 // 8. ¿Cuáles son los países que poseen más autores?
-router.get('/paises-mas-autores', async (req, res) => {
+router.get('/8', async (req, res) => {
   try {
     const [results] = await pool.query(`
       SELECT a.pais_origen AS Pais_Autor, COUNT(*) AS cantidad_autores
@@ -142,7 +147,7 @@ router.get('/paises-mas-autores', async (req, res) => {
 });
 
 // 9. ¿Qué libros se han enviado más con envío?
-router.get('/libros-mas-enviados', async (req, res) => {
+router.get('/9', async (req, res) => {
   try {
     const [results] = await pool.query(`
       SELECT titulo_libro, COUNT(*) AS total_enviado
@@ -157,8 +162,8 @@ router.get('/libros-mas-enviados', async (req, res) => {
   }
 });
 
-// 10. ¿Cuál es el cliente que más ha comprado libros?
-router.get('/cliente-mas-compras', async (req, res) => {
+// 10. ¿Cuál es el cliente que más ha comprado?
+router.get('/10', async (req, res) => {
   try {
     const [results] = await pool.query(`
       SELECT c.nombre, COUNT(*) AS total_compras
@@ -176,7 +181,7 @@ router.get('/cliente-mas-compras', async (req, res) => {
 });
 
 // 11. ¿Cuántos libros ha suministrado cada proveedor?
-router.get('/libros-por-proveedor', async (req, res) => {
+router.get('/11', async (req, res) => {
   try {
     const [results] = await pool.query(`
       SELECT p.nombre AS Proveedor, COUNT(s.titulo_libro) AS Libros_Suministrados
@@ -193,7 +198,7 @@ router.get('/libros-por-proveedor', async (req, res) => {
 });
 
 // 12. ¿Cuál es la cantidad de libros suministrados por los proveedores entre Noviembre y Diciembre del 2024?
-router.get('/libros-suministrados-fechas', async (req, res) => {
+router.get('/12', async (req, res) => {
   try {
     const [results] = await pool.query(`
       SELECT p.nombre AS Proveedor, COUNT(s.titulo_libro) AS Libros_Suministrados
@@ -211,7 +216,7 @@ router.get('/libros-suministrados-fechas', async (req, res) => {
 });
 
 // 13. ¿Cuál es el sueldo promedio de los empleados en cada sucursal?
-router.get('/sueldo-promedio-sucursal', async (req, res) => {
+router.get('/13', async (req, res) => {
   try {
     const [results] = await pool.query(`
       SELECT s.nombre AS Sucursal, AVG(e.sueldo) AS Sueldo_Promedio
@@ -228,7 +233,7 @@ router.get('/sueldo-promedio-sucursal', async (req, res) => {
 });
 
 // 14. ¿Cuántos clientes tienen membresías activas por tipo?
-router.get('/clientes-por-membresia', async (req, res) => {
+router.get('/14', async (req, res) => {
   try {
     const [results] = await pool.query(`
       SELECT m.tipo AS Tipo_Membresia, COUNT(c.id_cliente) AS Total_Clientes
@@ -245,7 +250,7 @@ router.get('/clientes-por-membresia', async (req, res) => {
 });
 
 // 15. ¿Qué beneficios tienen los clientes con una membresía Estandar?
-router.get('/beneficios-membresia-estandar', async (req, res) => {
+router.get('/15', async (req, res) => {
   try {
     const [results] = await pool.query(`
       SELECT m.tipo AS Tipo_Membresia, m.beneficios AS Beneficios
@@ -255,6 +260,82 @@ router.get('/beneficios-membresia-estandar', async (req, res) => {
     res.json(results[0]);
   } catch (error) {
     console.error('Error al realizar la consulta:', error);
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
+});
+
+/////////////////////////////////////////////////////
+// Inserción, eliminación y actualización de datos //
+/////////////////////////////////////////////////////
+
+router.post('/compra-libro', async (req, res) => {
+  const { nombre, email, titulo_libro, id_sucursal, direccion_envio, cantidad, fecha_envio } = req.body;
+
+  try {
+    // 1. Obtener el ID del cliente a partir del nombre y email
+    const [cliente] = await pool.query(
+      `SELECT id_cliente FROM Cliente WHERE nombre = ? AND email = ?`, 
+      [nombre, email]
+    );
+
+    if (cliente.length === 0) {
+      return res.status(404).json({ error: 'Cliente no encontrado' });
+    }
+
+    const id_cliente = cliente[0].id_cliente;
+
+    // 2. Insertar en la tabla Envio
+    await pool.query(
+      `INSERT INTO Envio (id_cliente, id_sucursal, titulo_libro, direccion, cantidad, fecha_enviado) 
+       VALUES (?, ?, ?, ?, ?, ?)`,
+      [id_cliente, id_sucursal, titulo_libro, direccion_envio, cantidad, fecha_envio]
+    );
+
+    // 3. Actualizar el stock del libro en la sucursal correspondiente
+    const [result] = await pool.query(
+      `UPDATE Inventario 
+       SET stock = stock - ? 
+       WHERE id_sucursal = ? AND titulo_libro = ? AND stock >= ?`,
+      [cantidad, id_sucursal, titulo_libro, cantidad]
+    );
+
+    if (result.affectedRows === 0) {
+      return res.status(400).json({ error: 'No hay suficiente stock o datos incorrectos' });
+    }
+
+    res.json({ message: 'Compra realizada y stock actualizado correctamente' });
+  } catch (error) {
+    console.error('Error al realizar la compra:', error);
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
+});
+
+router.post('/devolucion-libro', async (req, res) => {
+  const { email, titulo_libro, fecha_devolucion, motivo } = req.body;
+
+  try {
+    // 1. Obtener el ID del cliente a partir del email
+    const [cliente] = await pool.query(
+      `SELECT id_cliente FROM Cliente WHERE email = ?`,
+      [email]
+    );
+
+    if (cliente.length === 0) {
+      return res.status(404).json({ error: 'Cliente no encontrado' });
+    }
+
+    const id_cliente = cliente[0].id_cliente;
+
+    // 2. Insertar en la tabla Devolucion
+    await pool.query(
+      `INSERT INTO Devolucion (id_cliente, titulo_libro, fecha_devolucion, motivo) 
+       VALUES (?, ?, ?, ?)`,
+      [id_cliente, titulo_libro, fecha_devolucion, motivo]
+    );
+
+    res.json({ message: 'Devolución registrada correctamente' });
+  } catch (error) {
+    console.error('Error al realizar la devolución:', error);
     res.status(500).json({ error: 'Error interno del servidor' });
   }
 });
