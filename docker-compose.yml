@@ -5,7 +5,10 @@ services:
     container_name: mysql_container
     restart: always
     environment:
-      MYSQL_DATABASE: Librería_RIW
+      MYSQL_DATABASE: libreria_riw
+      MYSQL_ROOT_PASSWORD: 333
+      MYSQL_USER: libreria_user
+      MYSQL_PASSWORD: 333
     ports:
       - "3307:3306" 
     volumes:

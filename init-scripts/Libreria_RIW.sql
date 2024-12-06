@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.40, for Linux (x86_64)
 --
--- Host: localhost    Database: Librería_RIW
+-- Host: localhost    Database: libreria_riw
 -- ------------------------------------------------------
 -- Server version	8.0.40-0ubuntu0.24.04.1
 
