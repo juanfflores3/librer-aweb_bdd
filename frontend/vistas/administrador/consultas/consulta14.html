@@ -91,7 +91,7 @@
                         <a class="collapse-item" href="/frontend/vistas/administrador/consultas/consulta8.html">Consulta 8</a>
                         <a class="collapse-item" href="/frontend/vistas/administrador/consultas/consulta9.html">Consulta 9</a>
                         <a class="collapse-item" href="/frontend/vistas/administrador/consultas/consulta10.html">Consulta 10</a>
-                        <a class="collapse-item" href="/frontend/vistas/administrador/consultas/consulta11.html">Consulta </a>
+                        <a class="collapse-item" href="/frontend/vistas/administrador/consultas/consulta11.html">Consulta 11</a>
                         <a class="collapse-item" href="/frontend/vistas/administrador/consultas/consulta12.html">Consulta 12</a>
                         <a class="collapse-item" href="/frontend/vistas/administrador/consultas/consulta13.html">Consulta 13</a>
                         <a class="collapse-item" href="/frontend/vistas/administrador/consultas/consulta14.html">Consulta 14</a>
@@ -164,88 +164,25 @@
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Página principal (Administrador)</h1>
+                        <h1 class="h3 mb-0 text-gray-800">¿Cuántos clientes tienen membresías activas por tipo?</h1>
                     </div>
-
-                    <!-- Content Row -->
-                    <div class="row">
-
-                        <!-- Total de Clientes -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-primary shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                Total de Clientes</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="totalClientes">0</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-users fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Total de Libros -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-success shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                Total de Libros</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="totalLibros">0</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-book fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Total de Empleados -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-info shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                                                Total de Empleados</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="totalEmpleados">0</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-user-tie fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Total de Proveedores -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-warning shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                                Total de Proveedores</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="totalProveedores">0</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-truck fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                
+                    <!-- Tabla de autores -->
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>Tipo Membresia</th>
+                                    <th>Total clientes</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Aquí se insertarán los datos de los autores -->
+                            </tbody>
+                        </table>
                     </div>
-
                 </div>
             </div>
             <!-- End of Main Content -->
@@ -308,6 +245,8 @@
     <script src="/frontend/js/demo/chart-area-demo.js"></script>
     <script src="js/demo/chart-pie-demo.js"></script>
     <script src="/frontend/js/demo/chart-pie-demo.js"></script>
+
+    <script src="/frontend/js/consulta14.js"></script>
 
 </body>
 

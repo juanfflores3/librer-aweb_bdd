@@ -40,7 +40,7 @@ router.get('/2', async (req, res) => {
   }
 });
 
-// 3. ¿Cuántos libros tenemos sobre un autor?
+// 3. ¿Cuántos libros tenemos de cada autor?
 router.get('/3', async (req, res) => {
   try {
     const [results] = await pool.query(`
@@ -49,10 +49,10 @@ router.get('/3', async (req, res) => {
       JOIN Escribe e ON e.id_autor = a.id_autor           
       JOIN Libro l ON l.titulo_libro = e.titulo_libro
       JOIN Inventario i ON i.titulo_libro = l.titulo_libro
-      WHERE a.nombre = parametro
-      GROUP BY a.nombre, l.titulo_libro;
+      GROUP BY a.nombre, l.titulo_libro
+      ORDER BY stock DESC;
     `);
-    res.json(results[0]);
+    res.json(results);
   } catch (error) {
     console.error('Error al realizar la consulta:', error);
     res.status(500).json({ error: 'Error interno del servidor' });
@@ -113,17 +113,16 @@ router.get('/6', async (req, res) => {
   }
 });
 
-// 7. ¿Cuál es el libro que más se ha devuelto?
+// 7. ¿Cuales son los libros que más se ha devuelto?
 router.get('/7', async (req, res) => {
   try {
     const [results] = await pool.query(`
       SELECT d.titulo_libro, COUNT(*) AS total_devolucion
       FROM Devolucion d
       GROUP BY d.titulo_libro
-      ORDER BY total_devolucion DESC
-      LIMIT 1;
+      ORDER BY total_devolucion DESC;
     `);
-    res.json(results[0]);
+    res.json(results);
   } catch (error) {
     console.error('Error al realizar la consulta:', error);
     res.status(500).json({ error: 'Error interno del servidor' });

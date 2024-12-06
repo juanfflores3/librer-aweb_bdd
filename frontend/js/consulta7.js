@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const tablaVentas = document.querySelector('#dataTable tbody');
 
     // Realiza una solicitud al backend
-    fetch('http://localhost:3002/2')
+    fetch('http://localhost:3002/7')
       .then((response) => response.json())
       .then((data) => {
         if (!data || data.length === 0) {
@@ -16,8 +16,8 @@ document.addEventListener('DOMContentLoaded', () => {
         // Procesar y mostrar los datos en la tabla
         const fila = document.createElement('tr');
         fila.innerHTML = `
-          <td>${data.fecha_compra}</td>
-          <td>${data.total_ventas}</td>
+          <td>${data.titulo_libro}</td>
+          <td>${data.total_devolucion}</td>
         `
         ;
         tablaVentas.appendChild(fila);
