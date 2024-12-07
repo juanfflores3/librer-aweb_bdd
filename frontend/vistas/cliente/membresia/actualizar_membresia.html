@@ -67,7 +67,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Opciones:</h6>
                         <a class="collapse-item" href="/frontend/vistas/cliente/libros/comprar_libro.html">Comprar libro</a>
-                        <a class="collapse-item" href="/frontend/vistas/cliente/libros/devolver_libro.html">Devolver libro</a>
+                        <a class="collapse-item" href="/frontend/vistas/cliente/libros/devolver_libro1.html">Devolver libro</a>
                         <a class="collapse-item" href="/frontend/vistas/cliente/libros/ver_libros.html">Ver libros</a>
                     </div>
                 </div>
@@ -139,22 +139,22 @@
                 <div class="container-fluid">
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Actualizar membresía</h1>
+                      <h1 class="h3 mb-0 text-gray-800">Actualizar Membresía</h1>
                     </div>
-                
+                  
                     <!-- Formulario de actualización de membresía -->
-                    <form id="actualizarMembresiaForm" action="/actualizar_membresia" method="POST">
-                        <div class="form-group">
-                            <label for="id_cliente">ID Cliente</label>
-                            <input type="number" class="form-control" id="id_cliente" name="id_cliente" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="id_membresia">Nueva Membresía</label>
-                            <select class="form-control" id="id_membresia" name="id_membresia" required>
-                                <!-- Aquí se insertarán las opciones de membresía -->
-                            </select>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Actualizar</button>
+                    <form id="actualizarMembresiaForm">
+                    <div class="form-group">
+                        <label for="email_cliente">Email Cliente</label>
+                        <input type="text" class="form-control" id="email_cliente" name="email_cliente" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="tipo">Nueva Membresía</label>
+                        <select class="form-control" id="tipo" name="tipo" required>
+                        <!-- Aquí se insertarán las opciones de membresía -->
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Actualizar</button>
                     </form>
                 </div>
             </div>
@@ -218,6 +218,10 @@
     <script src="/frontend/js/demo/chart-area-demo.js"></script>
     <script src="js/demo/chart-pie-demo.js"></script>
     <script src="/frontend/js/demo/chart-pie-demo.js"></script>
+
+    <script src="/frontend/js/membresias.js"></script>
+    <script src="/frontend/js/actualizar_membresia.js"></script>
+    
 
 </body>
 

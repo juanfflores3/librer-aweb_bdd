@@ -43,7 +43,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="/frontend/vistas/administrador/indexAdmin.html">
+                <a class="nav-link" href="/frontend/vistas/cliente/indexCli.html">
                     <i class="fas fa-home"></i>
                     <span>Volver a la página principal</span></a>
             </li>
@@ -60,67 +60,30 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-shopping-cart"></i>
-                    <span>Pedido</span>
+                    <i class="fas fa-fw fa-book"></i>
+                    <span>Administración de libros</span>
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Opciones:</h6>
-                        <a class="collapse-item" href="/frontend/vistas/administrador/pedidos/crear_pedido.html">Crear pedido</a>
+                        <a class="collapse-item" href="/frontend/vistas/cliente/libros/comprar_libro.html">Comprar libro</a>
+                        <a class="collapse-item" href="/frontend/vistas/cliente/libros/devolver_libro1.html">Devolver libro</a>
+                        <a class="collapse-item" href="/frontend/vistas/cliente/libros/ver_libros.html">Ver libros</a>
                     </div>
                 </div>
             </li>
 
-            <!-- Nav Item - Visualizar Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseConsultas"
-                    aria-expanded="true" aria-controls="collapseConsultas">
-                    <i class="fas fa-fw fa-eye"></i>
-                    <span>Consultas</span>
-                </a>
-                <div id="collapseConsultas" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Opciones:</h6>
-                        <a class="collapse-item" href="/frontend/vistas/administrador/consultas/consulta1.html">Consulta 1</a>
-                        <a class="collapse-item" href="/frontend/vistas/administrador/consultas/consulta2.html">Consulta 2</a>
-                        <a class="collapse-item" href="/frontend/vistas/administrador/consultas/consulta3.html">Consulta 3</a>
-                        <a class="collapse-item" href="/frontend/vistas/administrador/consultas/consulta4.html">Consulta 4</a>
-                        <a class="collapse-item" href="/frontend/vistas/administrador/consultas/consulta5.html">Consulta 5</a>
-                        <a class="collapse-item" href="/frontend/vistas/administrador/consultas/consulta6.html">Consulta 6</a>
-                        <a class="collapse-item" href="/frontend/vistas/administrador/consultas/consulta7.html">Consulta 7</a>
-                        <a class="collapse-item" href="/frontend/vistas/administrador/consultas/consulta8.html">Consulta 8</a>
-                        <a class="collapse-item" href="/frontend/vistas/administrador/consultas/consulta9.html">Consulta 9</a>
-                        <a class="collapse-item" href="/frontend/vistas/administrador/consultas/consulta10.html">Consulta 10</a>
-                        <a class="collapse-item" href="/frontend/vistas/administrador/consultas/consulta11.html">Consulta 11</a>
-                        <a class="collapse-item" href="/frontend/vistas/administrador/consultas/consulta12.html">Consulta 12</a>
-                        <a class="collapse-item" href="/frontend/vistas/administrador/consultas/consulta13.html">Consulta 13</a>
-                        <a class="collapse-item" href="/frontend/vistas/administrador/consultas/consulta14.html">Consulta 14</a>
-                        <a class="collapse-item" href="/frontend/vistas/administrador/consultas/consulta15.html">Consulta 15</a>
-                        
-                        
-                    </div>
-                </div>
-            </li>
-
-            <!-- Nav Item - Visualizar Collapse Menu -->
+            <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProveedor"
                     aria-expanded="true" aria-controls="collapseProveedor">
-                    <i class="fas fa-fw fa-eye"></i>
-                    <span>Visualizar</span>
+                    <i class="fas fa-fw fa-id-card"></i>
+                    <span>Membresía</span>
                 </a>
                 <div id="collapseProveedor" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Opciones:</h6>
-                        <a class="collapse-item" href="/frontend/vistas/administrador/visualizar/ver_proveedores.html">Ver Proovedores</a>
-                        <a class="collapse-item" href="/frontend/vistas/administrador/visualizar/ver_libros.html">Ver Libros</a>
-                        <a class="collapse-item" href="/frontend/vistas/administrador/visualizar/ver_autores.html">Ver Autores</a>
-                        <a class="collapse-item" href="/frontend/vistas/administrador/visualizar/ver_inventario_sucursal.html">Ver Inventario sucursales</a>
-                        <a class="collapse-item" href="/frontend/vistas/administrador/visualizar/ver_devoluciones.html">Ver Devoluciones</a>
-                        <a class="collapse-item" href="/frontend/vistas/administrador/visualizar/ver_envios.html">Ver Envios</a>
-                        <a class="collapse-item" href="/frontend/vistas/administrador/visualizar/ver_empleados.html">Ver Empleados</a>
-                        <a class="collapse-item" href="/frontend/vistas/administrador/visualizar/ver_clientes.html">Ver Clientes</a>
-                        
+                        <a class="collapse-item" href="/frontend/vistas/cliente/membresia/actualizar_membresia.html">Actualizar membresía</a>
                     </div>
                 </div>
             </li>
@@ -174,28 +137,20 @@
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Ver Devoluciones</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Devolver libro</h1>
                     </div>
-
-                    <!-- Tabla de devoluciones -->
-                    <div class="table-responsive">
-                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                            <thead>
-                                <tr>
-                                    <th>ID Cliente</th>
-                                    <th>Título del Libro</th>
-                                    <th>Fecha de Devolución</th>
-                                    <th>Motivo</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <!-- Aquí se insertarán los datos de las devoluciones -->
-                            </tbody>
-                        </table>
-                    </div>
+                
+                    <!-- Formulario de devolución de libro -->
+                    <form id="devolverLibroForm" action="devolver_libro2.html" method="get">
+                        <div class="form-group">
+                            <label for="email_cliente">Email Cliente:</label>
+                            <input type="text" class="form-control" id="email_cliente" name="email_cliente" required>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">Ingresar</button>
+                    </form>
                 </div>
             </div>
             <!-- End of Main Content -->
@@ -258,6 +213,8 @@
     <script src="/frontend/js/demo/chart-area-demo.js"></script>
     <script src="js/demo/chart-pie-demo.js"></script>
     <script src="/frontend/js/demo/chart-pie-demo.js"></script>
+
+    <script src="/frontend/js/devolver_libro1"></script>
 
 </body>
 

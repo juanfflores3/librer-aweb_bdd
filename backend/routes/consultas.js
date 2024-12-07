@@ -262,19 +262,143 @@ router.get('/15', async (req, res) => {
     res.status(500).json({ error: 'Error interno del servidor' });
   }
 });
-
 /////////////////////////////////////////////////////
-// Inserción, eliminación y actualización de datos //
+// Recuperación de datos ////////////////////////////
 /////////////////////////////////////////////////////
-
-router.post('/compra-libro', async (req, res) => {
-  const { nombre, email, titulo_libro, id_sucursal, direccion_envio, cantidad, fecha_envio } = req.body;
+// Filtrar libros por categoría
+router.get('/filtrar-libros', async (req, res) => {
+  const { categoria } = req.query;
 
   try {
-    // 1. Obtener el ID del cliente a partir del nombre y email
+    const [results] = await pool.query(
+      `
+      SELECT l.titulo_libro, l.numero_paginas, l.genero, l.categoria, l.ano_publicacion, e.nombre AS nombre_editorial
+      FROM Libro l
+      JOIN Editorial e ON l.id_editorial = e.id_editorial
+      WHERE l.categoria = ?;
+      `,
+      [categoria]
+    );
+    res.json(results);
+  } catch (error) {
+    console.error('Error al filtrar los libros por categoría:', error);
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
+});
+
+// Obtener todas las categorías de los libros
+router.get('/categorias', async (req, res) => {
+  try {
+    const [results] = await pool.query(`
+      SELECT DISTINCT categoria FROM Libro;
+    `);
+    res.json(results);
+  } catch (error) {
+    console.error('Error al obtener las categorías:', error);
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
+});
+
+// Obtener todos los libros con todos sus atributos
+router.get('/ver_libros', async (req, res) => {
+  try {
+    const [results] = await pool.query(`
+      SELECT * FROM Libro;
+    `);
+    res.json(results);
+  } catch (error) {
+    console.error('Error al obtener los libros:', error);
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
+});
+
+// 1. Obtener todos los titulos de los libros
+router.get('/libros', async (req, res) => {
+  try {
+    const [results] = await pool.query(`
+      SELECT titulo_libro AS titulo FROM Libro;
+    `);
+    res.json(results);
+  } catch (error) {
+    console.error('Error al obtener los libros:', error);
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
+});
+
+// 2. Obtener todos los nombres de las sucursales
+router.get('/sucursales', async (req, res) => {
+  try {
+    const [results] = await pool.query(`
+      SELECT nombre AS nombre_sucursal FROM Sucursal;
+    `);
+    res.json(results);
+  } catch (error) {
+    console.error('Error al obtener las sucursales:', error);
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
+});
+
+// 3. Obtener todos el conteo de Clientes en la tabla Ciente
+router.get('/cant_clientes', async (req, res) => {
+  try {
+    const [results] = await pool.query(`
+      SELECT COUNT(*) AS total_clientes FROM Cliente;
+    `);
+    res.json(results[0]);
+  } catch (error) {
+    console.error('Error al obtener los clientes:', error);
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
+});
+
+// 4. Obtener la cantidad de libros que vendemos
+router.get('/cant_libros', async (req, res) => {
+  try {
+    const [results] = await pool.query(`
+      SELECT COUNT(*) AS total_libros FROM Libro;
+    `);
+    res.json(results[0]);
+  } catch (error) {
+    console.error('Error al obtener los libros:', error);
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
+});
+
+// 5. Obtener la cantidad de empleados que tenemos entre todas las sucursales
+router.get('/cant_empleados', async (req, res) => {
+  try {
+    const [results] = await pool.query(`
+      SELECT COUNT(*) AS total_empleados FROM Empleado;
+    `);
+    res.json(results[0]);
+  } catch (error) {
+    console.error('Error al obtener los empleados:', error);
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
+});
+
+// 6. Obtener la cantidad de proveedores que tenemos
+router.get('/cant_proveedores', async (req, res) => {
+  try {
+    const [results] = await pool.query(`
+      SELECT COUNT(*) AS total_proveedores FROM Proveedor;
+    `);
+    res.json(results[0]);
+  } catch (error) {
+    console.error('Error al obtener los proveedores:', error);
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
+});
+
+// 7. Obtener los libros que ha comprado un cliente
+router.get('/libros-cliente/:email', async (req, res) => {
+  const { email } = req.params;
+
+  try {
+    // Obtener el id_cliente a partir del email
     const [cliente] = await pool.query(
-      `SELECT id_cliente FROM Cliente WHERE nombre = ? AND email = ?`, 
-      [nombre, email]
+      `SELECT id_cliente FROM Cliente WHERE email = ?`,
+      [email]
     );
 
     if (cliente.length === 0) {
@@ -283,31 +407,146 @@ router.post('/compra-libro', async (req, res) => {
 
     const id_cliente = cliente[0].id_cliente;
 
-    // 2. Insertar en la tabla Envio
-    await pool.query(
-      `INSERT INTO Envio (id_cliente, id_sucursal, titulo_libro, direccion, cantidad, fecha_enviado) 
-       VALUES (?, ?, ?, ?, ?, ?)`,
-      [id_cliente, id_sucursal, titulo_libro, direccion_envio, cantidad, fecha_envio]
+    // Obtener los títulos de libros asociados al cliente
+    const [libros] = await pool.query(
+      `SELECT p.titulo_libro 
+       FROM Pedido p
+       WHERE p.id_cliente = ?`,
+      [id_cliente]
     );
 
-    // 3. Actualizar el stock del libro en la sucursal correspondiente
-    const [result] = await pool.query(
-      `UPDATE Inventario 
-       SET stock = stock - ? 
-       WHERE id_sucursal = ? AND titulo_libro = ? AND stock >= ?`,
-      [cantidad, id_sucursal, titulo_libro, cantidad]
-    );
-
-    if (result.affectedRows === 0) {
-      return res.status(400).json({ error: 'No hay suficiente stock o datos incorrectos' });
-    }
-
-    res.json({ message: 'Compra realizada y stock actualizado correctamente' });
+    res.json({ id_cliente, libros });
   } catch (error) {
-    console.error('Error al realizar la compra:', error);
+    console.error('Error al obtener los libros del cliente:', error);
     res.status(500).json({ error: 'Error interno del servidor' });
   }
 });
+
+  // Obrener las membresias disponibles para asignar a un cliente
+  router.get('/membresias', async (req, res) => {
+    try {
+      const [results] = await pool.query('SELECT tipo FROM Membresia');
+      res.json(results);
+    } catch (error) {
+      console.error('Error al obtener las membresías:', error);
+      res.status(500).json({ error: 'Error interno del servidor' });
+    }
+  });
+
+
+
+/////////////////////////////////////////////////////
+// Inserción, eliminación y actualización de datos //
+/////////////////////////////////////////////////////
+
+// Devolución de un libro
+router.post('/devolver-libro', async (req, res) => {
+  const { email_cliente, titulo_libro, fecha_devolucion, motivo } = req.body;
+
+  try {
+    const [cliente] = await pool.query(
+      `SELECT id_cliente FROM Cliente WHERE email = ?`,
+      [email_cliente]
+    );
+
+    if (cliente.length === 0) {
+      return res.status(404).json({ error: 'Cliente no encontrado' });
+    }
+
+    const id_cliente = cliente[0].id_cliente;
+
+    // Insertar en la tabla Devolucion
+    await pool.query(
+      `INSERT INTO Devolucion (id_cliente, titulo_libro, fecha_devolucion, motivo)
+       VALUES (?, ?, ?, ?)`,
+      [id_cliente, titulo_libro, fecha_devolucion, motivo]
+    );
+
+    // Eliminar el libro de la tabla Pedido
+    await pool.query(
+      `DELETE FROM Pedido WHERE id_cliente = ? AND titulo_libro = ?`,
+      [id_cliente, titulo_libro]
+    );
+
+    res.status(200).json({ message: 'Devolución procesada exitosamente' });
+  } catch (error) {
+    console.error('Error al procesar la devolución:', error);
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
+});
+
+router.post('/crear_pedido', async (req, res) => {
+  const { email_cliente, titulo_libro, fecha_compra } = req.body;
+
+  try {
+    // Obtener el id_cliente a partir del email del cliente
+    const [cliente] = await pool.query(
+      `SELECT id_cliente FROM Cliente WHERE email = ?`, 
+      [email_cliente]
+    );
+
+    if (cliente.length === 0) {
+      return res.status(404).json({ error: 'Cliente no encontrado' });
+    }
+
+    const id_cliente = cliente[0].id_cliente;
+
+    // Insertar el pedido en la tabla Pedido
+    await pool.query(
+      `INSERT INTO Pedido (id_cliente, titulo_libro, fecha_compra) VALUES (?, ?, ?)`,
+      [id_cliente, titulo_libro, fecha_compra]
+    );
+
+    res.status(200).json({ message: 'Pedido creado exitosamente' });
+  } catch (error) {
+    console.error('Error al crear el pedido:', error);
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
+});
+
+router.post('/crear_envio', async (req, res) => {
+  const { email_cliente, titulo_libro, nombre_sucursal, direccion, cantidad, fecha_enviado } = req.body;
+
+  try {
+      // 1. Obtener el id_cliente a partir del email
+      const [cliente] = await pool.query(
+          `SELECT id_cliente FROM Cliente WHERE email = ?`,
+          [email_cliente]
+      );
+
+      if (cliente.length === 0) {
+          return res.status(404).json({ error: 'Cliente no encontrado' });
+      }
+
+      const id_cliente = cliente[0].id_cliente;
+
+      const [sucursal] = await pool.query(
+        `SELECT id_sucursal FROM Sucursal WHERE nombre = ?`,
+        [nombre_sucursal]
+      );
+
+      const id_sucursal = sucursal[0].id_sucursal;
+
+      // 2. Insertar el envío en la tabla Envio
+      await pool.query(
+          `INSERT INTO Envio (id_cliente, id_sucursal, titulo_libro, direccion, cantidad, fecha_enviado)
+           VALUES (?, ?, ?, ?, ?, ?)`,
+          [id_cliente, id_sucursal, titulo_libro, direccion, cantidad, fecha_enviado]
+      );
+
+      // 3. Actualizar el stock en la tabla Inventario
+      await pool.query(
+          `UPDATE Inventario SET stock = stock - ? WHERE id_sucursal = ? AND titulo_libro = ?`,
+          [cantidad, id_sucursal, titulo_libro]
+      );
+
+      res.status(200).json({ message: 'Compra realizada exitosamente y stock actualizado' });
+  } catch (error) {
+      console.error('Error al realizar la compra:', error);
+      res.status(500).json({ error: 'Error interno del servidor' });
+  }
+});
+
 
 router.post('/devolucion-libro', async (req, res) => {
   const { email, titulo_libro, fecha_devolucion, motivo } = req.body;
@@ -339,6 +578,90 @@ router.post('/devolucion-libro', async (req, res) => {
   }
 });
 
+  // Obtener todos los autores
+router.get('/autores', async (req, res) => {
+  try {
+    const [results] = await pool.query(`
+      SELECT id_autor, nombre, pais_origen
+      FROM Autor
+    `);
+    res.json(results);
+  } catch (error) {
+    console.error('Error al realizar la consulta:', error);
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
+});
 
+
+router.post('/devolucion_libro', async (req, res) => {
+  const { email_cliente, titulo_libro, fecha_devolucion, motivo } = req.body;
+
+  try {
+      // 1. Obtener el ID del cliente a partir del email
+      const [cliente] = await connection.query(
+          `SELECT id_cliente FROM Cliente WHERE email = ?`,
+          [email_cliente]
+      );
+
+      if (cliente.length === 0) {
+          return res.status(404).json({ error: 'Cliente no encontrado' });
+      }
+
+      const id_cliente = cliente[0].id_cliente;
+
+      // 2. Insertar en la tabla Devolucion
+      await connection.query(
+          `INSERT INTO Devolucion (id_cliente, titulo_libro, fecha_devolucion, motivo) 
+           VALUES (?, ?, ?, ?)`,
+          [id_cliente, titulo_libro, fecha_devolucion, motivo]
+      );
+
+      res.status(200).json({ message: 'Devolución registrada correctamente' });
+  } catch (error) {
+      console.error('Error al registrar la devolución:', error);
+      res.status(500).json({ error: 'Error interno del servidor' });
+  }
+});
+
+router.post('/actualizar_membresia', async (req, res) => {
+  const { email_cliente, tipo } = req.body;
+
+  try {
+    // 1. Obtener el ID de la membresía a partir del tipo proporcionado
+    const [membresia] = await pool.query(
+      `SELECT id_membresia FROM Membresia WHERE tipo = ?`,
+      [tipo]
+    );
+
+    if (membresia.length === 0) {
+      return res.status(404).json({ error: 'Tipo de membresía no encontrado' });
+    }
+
+    const id_membresia = membresia[0].id_membresia;
+
+    // 2. Obtener el ID del cliente a partir del email proporcionado
+    const [cliente] = await pool.query(
+      `SELECT id_cliente FROM Cliente WHERE email = ?`,
+      [email_cliente]
+    );
+
+    if (cliente.length === 0) {
+      return res.status(404).json({ error: 'Cliente no encontrado' });
+    }
+
+    const id_cliente = cliente[0].id_cliente;
+
+    // 3. Actualizar la membresía del cliente en la tabla Cliente
+    await pool.query(
+      `UPDATE Cliente SET id_membresia = ? WHERE id_cliente = ?`,
+      [id_membresia, id_cliente]
+    );
+
+    res.status(200).json({ message: 'Membresía actualizada exitosamente' });
+  } catch (error) {
+    console.error('Error al actualizar la membresía:', error);
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
+});
 
 module.exports = router;

@@ -1,3 +1,0 @@
-npm init -Y
-npm i mysql2/promise
-npm i express

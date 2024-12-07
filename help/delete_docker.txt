@@ -1,2 +1,0 @@
-Eliminar huerfanos de mis contenedores
-    docker compose down -v --remove-orphans

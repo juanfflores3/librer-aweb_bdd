@@ -67,7 +67,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Opciones:</h6>
                         <a class="collapse-item" href="/frontend/vistas/cliente/libros/comprar_libro.html">Comprar libro</a>
-                        <a class="collapse-item" href="/frontend/vistas/cliente/libros/devolver_libro.html">Devolver libro</a>
+                        <a class="collapse-item" href="/frontend/vistas/cliente/libros/devolver_libro1.html">Devolver libro</a>
                         <a class="collapse-item" href="/frontend/vistas/cliente/libros/ver_libros.html">Ver libros</a>
                     </div>
                 </div>
@@ -143,28 +143,30 @@
                     </div>
                 
                     <!-- Formulario de devolución de libro -->
-                    <form action="/ruta_de_tu_servidor" method="POST">
-                        <div class="form-group">
-                            <label for="email_cliente">Email Cliente</label>
-                            <input type="number" class="form-control" id="email_cliente" name="email_cliente" required>
-                        </div>
+                    <form id="devolverLibroForm" action="/frontend/vistas/cliente/indexCli.html" method="get">
                         <div class="form-group">
                             <label for="titulo_libro">Título del Libro</label>
-                            <input type="text" class="form-control" id="titulo_libro" name="titulo_libro" required>
+                            <select class="form-control" id="titulo_libro" name="titulo_libro" required>
+                                <!-- Aquí se insertarán las opciones de libros -->
+                            </select>
                         </div>
                         <div class="form-group">
-                            <label for="fecha_devolucion">Fecha de Devolución</label>
+                            <label for="fecha_devolucion">Fecha de Devolución:</label>
                             <input type="date" class="form-control" id="fecha_devolucion" name="fecha_devolucion" required>
                         </div>
                         <div class="form-group">
-                            <label for="motivo">Motivo de Devolución</label>
-                            <textarea class="form-control" id="motivo" name="motivo" rows="3" required></textarea>
+                            <label for="motivo">Motivo:</label>
+                            <textarea class="form-control" id="motivo" name="motivo" required></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary">Devolver</button>
                     </form>
                 </div>
             </div>
             <!-- End of Main Content -->
+
+
+            
+
 
             <!-- Footer -->
             <footer class="sticky-footer bg-white">
@@ -224,6 +226,8 @@
     <script src="/frontend/js/demo/chart-area-demo.js"></script>
     <script src="js/demo/chart-pie-demo.js"></script>
     <script src="/frontend/js/demo/chart-pie-demo.js"></script>
+
+    <script src="/frontend/js/devolver_libro2.js"></script>
 
 </body>
 

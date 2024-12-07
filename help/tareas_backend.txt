@@ -1,6 +1,0 @@
-El backend es responsable de:
-
-    - Conectar con MySQL.
-    - Invocar los procedimientos almacenados.
-    - Procesar los resultados devueltos por MySQL.
-    - Presentar los datos al usuario (en el frontend).

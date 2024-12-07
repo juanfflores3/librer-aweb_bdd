@@ -67,7 +67,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Opciones:</h6>
                         <a class="collapse-item" href="/frontend/vistas/cliente/libros/comprar_libro.html">Comprar libro</a>
-                        <a class="collapse-item" href="/frontend/vistas/cliente/libros/devolver_libro.html">Devolver libro</a>
+                        <a class="collapse-item" href="/frontend/vistas/cliente/libros/devolver_libro1.html">Devolver libro</a>
                         <a class="collapse-item" href="/frontend/vistas/cliente/libros/ver_libros.html">Ver libros</a>
                     </div>
                 </div>
@@ -145,10 +145,6 @@
                     <!-- Formulario de compra de libro -->
                     <form id="comprarLibroForm" action="/crear_envio" method="POST">
                         <div class="form-group">
-                            <label for="nombre_cliente">Nombre cliente</label>
-                            <input type="number" class="form-control" id="nombre_cliente" name="nombre_cliente" required>
-                        </div>
-                        <div class="form-group">
                             <label for="email">Email Cliente</label>
                             <input type="text" class="form-control" id="email_cliente" name="email_cliente" required>
                         </div>
@@ -159,8 +155,10 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="id_sucursal">ID Sucursal</label>
-                            <input type="number" class="form-control" id="id_sucursal" name="id_sucursal" required>
+                            <label for="nombre_sucursal">Nombre sucursal</label>
+                            <select class="form-control" id="nombre_sucursal" name="nombre_sucursal" required>
+                                <!-- Aquí se insertarán las opciones de sucursales -->
+                            </select>
                         </div>
                         <div class="form-group">
                             <label for="direccion">Dirección de Envío</label>
@@ -238,6 +236,10 @@
     <script src="/frontend/js/demo/chart-area-demo.js"></script>
     <script src="js/demo/chart-pie-demo.js"></script>
     <script src="/frontend/js/demo/chart-pie-demo.js"></script>
+
+    <script src="/frontend/js/libros.js"></script>
+    <script src="/frontend/js/sucursales.js"></script>
+    <script src="/frontend/js/comprar_libro.js"></script>
 
 </body>
 
