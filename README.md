@@ -5,9 +5,7 @@ Este proyecto tiene como finalidad demostrar el funcionamiento de una base de da
 ## Estructura del Proyecto
 
 - `backend/`: Contiene el código del servidor backend.
-- `bdd_info/`: Contiene scripts SQL para la base de datos.
 - `frontend/`: Contiene el código del frontend.
-- `help/`: Archivos de ayuda y documentación.
 - `init-scripts/`: Scripts de inicialización.
 - `docker-compose.yml`: Archivo de configuración de Docker Compose.
 - `README.md`: Este archivo.
